@@ -1,6 +1,7 @@
+![Log yard example](images/logyard_example.png "Example log yard")
+
 # "Find me all the log yards in Europe"
-It started with that challenge from Gert-Jan Nabuurs:
-[text](https://www.linkedin.com/posts/gert-jan-nabuurs-803b091b_find-me-all-the-log-yards-in-europe-activity-7312359640799850497-z1C0?utm_source=share&utm_medium=member_desktop&rcm=ACoAACjuRFYBp6OXU-RU6sAZGFKpdcPGZUuLplQ)
+It started with [that challenge](https://www.linkedin.com/posts/gert-jan-nabuurs-803b091b_find-me-all-the-log-yards-in-europe-activity-7312359640799850497-z1C0?utm_source=share&utm_medium=member_desktop&rcm=ACoAACjuRFYBp6OXU-RU6sAZGFKpdcPGZUuLplQ) from Gert-Jan Nabuurs.
 
 This is exactly the kind of thing which should be possible via pre computed satellite image embeddings. As I've wanted to deep dive on such embeddings for a while, I decided to explore this challenge of identifying log yards.
 
@@ -16,8 +17,9 @@ Given no very high resolution open data is available in Europe, but is in the US
 ## Data and pre-computed embeddings
 Log yards are likely easily identifable very high resolution imagery (satellite or aerial), so using embeddings on such imagery is a good place to start. Fortunately in the US NAIP imagery is available at <1m resolution. Further, NAIP has already been processed to embeddings with the Clay EO foundational model. That lets us avoid any heavy processing ourselves and focus just on the key question of identifying log yards based on such embeddings. Unfortunately nothing like NAIP, or embeddings based on it are available in the EU, so this project is a proof of concept on identifying log yards from embeddings in general where open data is available.
 
-See here for context: [text](https://www.linkedin.com/pulse/state-ai-eo-bruno-sanchez-andrade-nu%C3%B1o-kogxf/?trackingId=qTleQGHKSiuTk%2FZFiDOhIA%3D%3D)
-Data available here: [text](https://source.coop/clay/clay-v1-5-naip-2)
+See [here](https://www.linkedin.com/pulse/state-ai-eo-bruno-sanchez-andrade-nu%C3%B1o-kogxf/?trackingId=qTleQGHKSiuTk%2FZFiDOhIA%3D%3D) for context about Clay and NAIP.
+
+Data available from Source Cooperative [here](https://source.coop/clay/clay-v1-5-naip-2).
 
 ## NAIP embeddings with Clay EO foundational model
 The Clay embeddings are `1024` dimensions and are calculated for 256x256 NAIP pixel patches.
@@ -37,7 +39,7 @@ The simplest approach is to find a few examples of log yards and then calculate 
 See code in `embedding_serach.ipynb`
 * Manually identified 3 log yards in one part of North East washington state with a few embedding patches each.
 * Calculated the mean embedding to combine them into a single embedding.
-*Calculated the cosine similarity of all other embeddings to that mean embedding for all the NAIP embeddings from Washington state in 2021.
+* Calculated the cosine similarity of all other embeddings to that mean embedding for all the NAIP embeddings from Washington state in 2021.
 * Ranked the similarity scores, and exported the patch geometries, similarity scores and ranks to a gpkg for visualisation in QGIS.
 * Visually insepcted the results in QGIS with Bing Maps base layer to see if the results were reasonable.
 
@@ -144,14 +146,14 @@ Code for experiments 2-5 is in `embedding_modelling.ipynb`
 
 All examples from Oregon (training data only from Washington):
 Example of a true positive and false negative:
-![True positive](iimages/ex5_true_false.png "Experiment 5: true positive and false negative log yard")
+![True positive](images/ex5_true_false.png "Experiment 5: true positive and false negative log yard")
 
 Example of true positives in Oregon:
 ![True positives 1](images/ex5_coastal_OR.png "Experiment 5: true positives in Oregon")
 ![True positives 2](images/ex5_OR2.png "Experiment 5: true positives in Oregon")
 
 Example of quarry false positive:
-![False positive](images/images/ex5_quarry_fp.png "Experiment 5: quarry false positive")
+![False positive](images/ex5_quarry_fp.png "Experiment 5: quarry false positive")
 
 Example of bulk mineral yard false positive:
 ![False positive](images/ex5_bulk_fp.png "Experiment 5: bulk mineral yard false positive")
