@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "log-embeddings"
+version = "0.1.0"
+description = "Exploring spatial search for log yards using pre-computed embeddings."
+authors = ["Samuel Barrett"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+geopandas = "^1.0.1"
+ipykernel = "^6.29.5"
+scikit-learn = "^1.6.1"
+dask = "^2025.3.0"
+boto3 = "^1.37.24"
+tqdm = "^4.67.1"
+pyarrow = "^19.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
